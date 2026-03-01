@@ -189,15 +189,14 @@ function checkPassword() {
       if (getReq.result === inputPwd) {
         window.location.href = "home.html";
       } else {
-        errorMsg.innerText = "Incorrect password!";
+  // Password mismatch
+  errorMsg.innerText = "Incorrect password!";
+  let inputBox = document.getElementById("passwordInput");
 
-let inputBox = document.getElementById("passwordInput");
-inputBox.classList.add("shake");
-
-setTimeout(function() {
-  inputBox.classList.remove("shake");
-}, 400);
-      }
+  inputBox.classList.remove("shake"); // remove previous if any
+  void inputBox.offsetWidth;           // force reflow
+  inputBox.classList.add("shake");    // add shake animation
+}
     }
   };
 }
