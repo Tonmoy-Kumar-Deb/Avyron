@@ -1,88 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Email OTP Login</title>
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      margin-top: 100px;
-    }
-    input {
-      padding: 10px;
-      width: 250px;
-      margin: 10px;
-    }
-    button {
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-  </style>
+  <title>Email Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Email OTP Login</h2>
+<h2>Email Login</h2>
 
 <input type="email" id="email" placeholder="Enter your email">
-<br>
-<button onclick="sendLink()">Send Login Code</button>
+<button onclick="sendLink()">Send Login Link</button>
 
 <p id="message"></p>
 
-<!-- Firebase v8 CDN -->
+<!-- Firebase v8 -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-<script>
-  // 🔹 Your Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyC-zo0YksWy66r6vqLEsg3K--ARxe0JNME",
-    authDomain: "avyron-441d4.firebaseapp.com",
-    projectId: "avyron-441d4",
-    storageBucket: "avyron-441d4.firebasestorage.app",
-    messagingSenderId: "354147160690",
-    appId: "1:354147160690:web:8824937caa4f0a4769e8eb"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
-  // 🔹 Send Email Link
-  function sendLink() {
-    var email = document.getElementById("email").value;
-
-    var actionCodeSettings = {
-      url: window.location.href,
-      handleCodeInApp: true
-    };
-
-    firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-      .then(function() {
-        window.localStorage.setItem('emailForSignIn', email);
-        document.getElementById("message").innerText =
-          "Login link sent to your email!";
-      })
-      .catch(function(error) {
-        document.getElementById("message").innerText =
-          error.message;
-      });
-  }
-
-  // 🔹 Auto Login When Clicking Email Link
-  if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-
-    var email = window.localStorage.getItem('emailForSignIn');
-
-    firebase.auth().signInWithEmailLink(email, window.location.href)
-      .then(function() {
-        document.getElementById("message").innerText =
-          "Login Successful!";
-      })
-      .catch(function(error) {
-        document.getElementById("message").innerText =
-          error.message;
-      });
-  }
-</script>
+<script src="main.js"></script>
 
 </body>
 </html>
