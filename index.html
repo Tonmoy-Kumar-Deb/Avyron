@@ -189,8 +189,14 @@ function checkPassword() {
       if (getReq.result === inputPwd) {
         window.location.href = "home.html"; // correct password
       } else {
-        // Wrong password → shake + vibrate
+        // Wrong password → shake + vibrate + temporary error message
         errorMsg.innerText = "Incorrect password!";
+
+        // Remove message after 1.9 seconds
+        setTimeout(function() {
+          errorMsg.innerText = "";
+        }, 1900);
+
         let inputBox = document.getElementById("passwordInput");
 
         // Shake effect
@@ -200,7 +206,7 @@ function checkPassword() {
 
         // Mobile vibration
         if (navigator.vibrate) {
-          navigator.vibrate([100, 50, 100]); // vibrate 100ms, pause 50ms, vibrate 100ms
+          navigator.vibrate([100, 50, 100]); // vibrate pattern
         }
       }
     }
@@ -208,6 +214,9 @@ function checkPassword() {
 
   getReq.onerror = function() {
     errorMsg.innerText = "Error accessing storage!";
+    setTimeout(function() {
+      errorMsg.innerText = "";
+    }, 1900);
   };
 }
 </script>
