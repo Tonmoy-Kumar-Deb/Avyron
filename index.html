@@ -175,29 +175,39 @@ function checkPassword() {
   getReq.onsuccess = function() {
 
     if (!getReq.result) {
-      // First time user → save password
+      // First-time user → save password
       let tx2 = db.transaction("passwordStore", "readwrite");
       let store2 = tx2.objectStore("passwordStore");
       store2.put(inputPwd, "userPassword");
 
       tx2.oncomplete = function() {
-        window.location.href = "home.html";
+        window.location.href = "home.html"; // redirect after saving
       };
 
     } else {
       // Returning user → check match
       if (getReq.result === inputPwd) {
-        window.location.href = "home.html";
+        window.location.href = "home.html"; // correct password
       } else {
-  // Password mismatch
-  errorMsg.innerText = "Incorrect password!";
-  let inputBox = document.getElementById("passwordInput");
+        // Wrong password → shake + vibrate
+        errorMsg.innerText = "Incorrect password!";
+        let inputBox = document.getElementById("passwordInput");
 
-  inputBox.classList.remove("shake"); // remove previous if any
-  void inputBox.offsetWidth;           // force reflow
-  inputBox.classList.add("shake");    // add shake animation
-}
+        // Shake effect
+        inputBox.classList.remove("shake"); // remove previous if any
+        void inputBox.offsetWidth;           // force reflow to restart animation
+        inputBox.classList.add("shake");     // trigger shake
+
+        // Mobile vibration
+        if (navigator.vibrate) {
+          navigator.vibrate([100, 50, 100]); // vibrate 100ms, pause 50ms, vibrate 100ms
+        }
+      }
     }
+  };
+
+  getReq.onerror = function() {
+    errorMsg.innerText = "Error accessing storage!";
   };
 }
 </script>
