@@ -1,9 +1,10 @@
-// Your Firebase Config
+
+  // --- Firebase Config ---
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyC-zo0YksWy66r6vqLEsg3K--ARxe0JNME", // your real API key
   authDomain: "avyron-441d4.firebaseapp.com",
   projectId: "avyron-441d4",
-  storageBucket: "avyron-441d4.firebasestorage.app",
+  storageBucket: "avyron-441d4.appspot.com",
   messagingSenderId: "354147160690",
   appId: "1:354147160690:web:8824937caa4f0a4769e8eb"
 };
@@ -11,39 +12,49 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Send Login Link
+// Function to send email login link
 function sendLink() {
-  var email = document.getElementById("email").value;
+  const email = document.getElementById("email").value;
+  if (!email) {
+    document.getElementById("message").innerText = "Please enter your email!";
+    return;
+  }
 
-  var actionCodeSettings = {
-    url: window.location.href,
+  const actionCodeSettings = {
+    url: window.location.href, // After clicking email link, user returns here
     handleCodeInApp: true
   };
 
   firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-    .then(function() {
+    .then(() => {
+      // Save email to local storage for verification
       window.localStorage.setItem('emailForSignIn', email);
-      document.getElementById("message").innerText =
-        "Login link sent! Check your email.";
+      document.getElementById("message").innerText = 
+        "✅ Login link sent! Check your email.";
     })
-    .catch(function(error) {
-      document.getElementById("message").innerText =
-        error.message;
+    .catch((error) => {
+      document.getElementById("message").innerText = 
+        "❌ Error: " + error.message;
     });
 }
 
-// Auto login after clicking email link
+// Check if coming from email link and sign in
 if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+  let email = window.localStorage.getItem('emailForSignIn');
 
-  var email = window.localStorage.getItem('emailForSignIn');
+  if (!email) {
+    email = window.prompt('Enter your email for confirmation:');
+  }
 
   firebase.auth().signInWithEmailLink(email, window.location.href)
-    .then(function() {
-      document.getElementById("message").innerText =
-        "Login Successful!";
+    .then((result) => {
+      document.getElementById("message").innerText = 
+        "🎉 Login Successful! Welcome " + result.user.email;
+      // Clear saved email
+      window.localStorage.removeItem('emailForSignIn');
     })
-    .catch(function(error) {
-      document.getElementById("message").innerText =
-        error.message;
+    .catch((error) => {
+      document.getElementById("message").innerText = 
+        "❌ Error: " + error.message;
     });
 }
