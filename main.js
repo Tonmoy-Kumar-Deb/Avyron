@@ -1,12 +1,14 @@
 
   // --- Firebase Config ---
+// Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC-zo0YksWy66r6vqLEsg3K--ARxe0JNME", // your real API key
+  apiKey: "AIzaSyC-zo0YksWy66r6vqLEsg3K--ARxe0JNME",
   authDomain: "avyron-441d4.firebaseapp.com",
   projectId: "avyron-441d4",
-  storageBucket: "avyron-441d4.appspot.com",
+  storageBucket: "avyron-441d4.appspot.com",  // ✅ fix here
   messagingSenderId: "354147160690",
-  appId: "1:354147160690:web:8824937caa4f0a4769e8eb"
+  appId: "1:354147160690:web:8824937caa4f0a4769e8eb",
+  measurementId: "G-KRTKM0KF31"
 };
 
 // Initialize Firebase
