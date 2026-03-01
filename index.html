@@ -38,12 +38,11 @@ body, html {
 @keyframes imageAppear {
   to { opacity: 1; transform: scale(1); }
 }
-
 .brand {
   font-size: 60px;
+  margin: 10px 0 0 0;
   white-space: nowrap;
   overflow: hidden;
-  margin: 10px 0 0 0; /* top margin smaller */
 }
 
 @keyframes shake {
@@ -62,8 +61,8 @@ body, html {
 
 .tagline {
   font-size: 24px;
-  opacity: 0;
-  animation: fadeIn 1s 2s forwards;
+  opacity: 0;                 /* start hidden */
+  transition: opacity 1s ease; /* smooth fade */
   margin-top: 10px;
 }
 
@@ -235,6 +234,26 @@ function checkPassword() {
     setTimeout(() => { errorMsg.innerText = ""; }, 1900);
   };
 }
+  document.addEventListener("DOMContentLoaded", function() {
+  const brandDiv = document.getElementById("brand");
+  const taglineDiv = document.querySelector(".tagline");
+  const brandText = "Avyron";
+  let i = 0;
+
+  function typeWriter() {
+    if (i < brandText.length) {
+      brandDiv.innerHTML += brandText.charAt(i); // Add one letter at a time
+      i++;
+      setTimeout(typeWriter, 250); // 250ms per letter
+    } else {
+      // After brand is typed, fade-in tagline
+      taglineDiv.style.opacity = 1;
+    }
+  }
+
+  // Start after splash image appears
+  setTimeout(typeWriter, 500);
+});
 </script>
 
 </body>
