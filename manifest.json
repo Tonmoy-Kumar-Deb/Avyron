@@ -1,0 +1,20 @@
+{
+  "name": "Avyron",
+  "short_name": "Avyron",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8B0000",
+  "icons": [
+    {
+      "src": "1771560256831.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "1771560256831.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
