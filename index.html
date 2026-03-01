@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Email Login</title>
+  <title>Phone + Password Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Email Login</h2>
+<h2>Login / Register</h2>
 
-<input type="email" id="email" placeholder="Enter your email">
-<button onclick="sendLink()">Send Login Link</button>
+<input type="text" id="phone" placeholder="Enter phone number">
+<input type="password" id="password" placeholder="Enter password">
+<button onclick="loginOrRegister()">Login / Register</button>
 
 <p id="message"></p>
 
-<!-- Firebase v8 -->
+<!-- Firebase JS SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
 <script src="main.js"></script>
-
 </body>
 </html>
